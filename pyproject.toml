@@ -1,0 +1,58 @@
+[build-system]
+requires = ["hatchling>=1.8.0", "hatch-vcs", "hatch-fancy-pypi-readme"]
+build-backend = "hatchling.build"
+
+[project]
+name = "esphome_components"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+description = ""
+authors = [
+    { name = "Owen Voke", email = "development@voke.dev" }
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3 :: Only",
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.urls]
+"Source Code" = "https://github.com/owenvoke/esphome-components"
+"Issues" = "https://github.com/owenvoke/esphome-components/issues"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "/.github",
+    "/docs",
+    "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["components"]
+
+[tool.hatch.envs.default]
+dependencies = [
+    "black",
+    "esphome",
+    "mypy",
+    "pytest==7.1",
+]
+
+[tool.hatch.envs.default.scripts]
+test = [
+    "black --check --diff .",
+    "mypy ohdear",
+    "pytest",
+]
+lint = [
+    "black ."
+]
+
+[tool.black]
+target-version = ["py39", "py310"]
